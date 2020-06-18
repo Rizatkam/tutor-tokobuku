@@ -10,18 +10,23 @@ const Book = ({ book, doUpdate, doDelete }) => {
     const bookStatus = book.bookStatus === "FOR_SELL" ? "info" : "warning";
 
     useEffect(() => {
-        setData({
+        setData({...book, bookCategory: {...book.bookCategory},
           id: book.id,
           title: book.title,
           synopsis: book.synopsis,
           price: book.price,
           bookStatus: book.bookStatus,
           authorName: book.authorName,
+          publicationDate: new Date()
         });
       }, []);
 
       const handleUpdate = () => {
+        doUpdate(data);
         setEdit(false);
+      };
+      const handleDelete = (id) => {
+        doDelete(id);
       };
 
       const handleForm = (e,formName) => {
@@ -39,7 +44,7 @@ const Book = ({ book, doUpdate, doDelete }) => {
               <LinkContainer to={`/book/${book.id}`} style={{ cursor: 'pointer' }}>
                 <Card.Title className="text-primary">{book.title}</Card.Title>
               </LinkContainer>
-            //   status
+            {/*status*/}
             {edit ? (
                   <Form.Control
                     as="select"
@@ -57,7 +62,7 @@ const Book = ({ book, doUpdate, doDelete }) => {
                 {book.bookStatus}
               </Button>
             )}
-            // price
+            {/*price*/}
             {edit ? (
                   <FormControl
                     className="mt-2"
@@ -70,7 +75,7 @@ const Book = ({ book, doUpdate, doDelete }) => {
             <h4 className="font-weight-bold" style={{ color: "#8052ff" }}>
             {`Rp ${numeral(book.price).format("0,0")}`}
           </h4>)}
-        //   author
+       {/*author*/}
         {edit ? (
             <FormControl
                 className="mt-2"
@@ -81,7 +86,7 @@ const Book = ({ book, doUpdate, doDelete }) => {
         ):(
             <h6 className="text-dark">Author: {book.authorName}</h6>
         )}
-        // synopsis
+        {/*synopsis*/}
         <Card.Text className="text-secondary text-justify">
         {edit ? (
             <FormControl
@@ -121,7 +126,7 @@ const Book = ({ book, doUpdate, doDelete }) => {
             <Button variant="success" onClick={() => setEdit(true)}>
               Edit
             </Button>{" "}
-            <Button variant="danger">Delete</Button>
+            <Button variant="danger" onClick={()=>handleDelete(book.id)}>Delete</Button>
           </div>
         )}
     </Card.Body>

@@ -1,7 +1,7 @@
 export {
     getListBook,
     getBookById,
-    //addBook,
+    // addBook,
     updateBook,
     deleteBook
-} from './book'
+} from './books'

@@ -1,15 +1,14 @@
-import * as actionsTypes from './actionTypes'
+import * as actionsTypes from './actionsTypes'
 import axios from 'axios'
-import { ENDPOINT, access_token } from '../../Utils/globals'
+import { ENDPOINT, access_token } from '../../utils/globals'
 
 export const getListBook = () => {
     const request = axios.get(`${ENDPOINT}/book/findAll`, {
         headers: {
-            Authorization: 'Bearer ${access_token}'
+            Authorization: `Bearer ${access_token}`
         }
     });
-
-    return (dispatch) => {
+    return (dispatch) => 
         request.then((response) => {
             console.log(response)
             return dispatch({
@@ -17,25 +16,23 @@ export const getListBook = () => {
                 payload: response.data
             });
         });
-    }
-}
-
+};
 export const getBookById = (id) => {
     const request = axios.get(`${ENDPOINT}/book/findById/${id}`, {
         headers: {
             Authorization: `Bearer ${access_token}`
         }
-    })
+    });
 
-    return (dispatch) => {
+    return (dispatch) => 
         request.then((response) => {
+            console.log(response);
             return dispatch({
                 type: actionsTypes.GET_BOOK_BY_ID,
                 payload: response.data
-            })
-        })
-    }
-}
+            });
+        });
+};
 
 export const updateBook = (data) => {
     const request = axios.get(`${ENDPOINT}/book/update`, data, {
@@ -44,18 +41,16 @@ export const updateBook = (data) => {
         }
     })
 
-    return (dispatch) => {
+    return (dispatch) => 
         request.then((response) => {
             console.log(response);
             dispatch({
                 type: actionsTypes.UPDATE_BOOK,
                 payload: response.data
-            })
-
+            });
             return dispatch(getListBook());
-        })
-    }
-}
+        });
+};
 
 export const deleteBook = (id) => {
     const request = axios.delete(`${ENDPOINT}/book/deleteById/${id}`, {
@@ -64,14 +59,13 @@ export const deleteBook = (id) => {
         }
     })
 
-    return (dispatch) => {
+    return (dispatch) => 
         request.then((response) => {
             console.log(response)
             dispatch({
                 type: actionsTypes.GET_BOOK_BY_ID,
                 payload: response.data
             })
-            return dispatch(getListBook())
-        })
-    }
-}
+            return dispatch(getListBook());
+        });
+};
