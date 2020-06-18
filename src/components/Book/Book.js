@@ -45,7 +45,7 @@ const Book = ({ book, doUpdate, doDelete }) => {
             <Card.Title className="text-primary">{book.title}</Card.Title>
           </LinkContainer>
           {edit ? (
-            <>
+            <div>
               <Form.Control
                 as="select"
                 value={data.bookStatus}
@@ -68,9 +68,9 @@ const Book = ({ book, doUpdate, doDelete }) => {
                 value={data.authorName}
                 onChange={(e) => handleForm(e, "authorName")}
               />
-            </>
+            </div>
           ) : (
-              <>
+              <div>
                 <Button
                   variant={bookStatus}
                   className="btn-sm font-weight-bold m-2"
@@ -81,7 +81,7 @@ const Book = ({ book, doUpdate, doDelete }) => {
                   {`Rp ${numeral(book.price).format("0,0")}`}
                 </h4>
                 <h6 className="text-dark">Author: {book.authorName}</h6>
-              </>
+              </div>
             )}
           <Card.Text className="text-secondary text-justify">
             {edit ? (
@@ -99,7 +99,7 @@ const Book = ({ book, doUpdate, doDelete }) => {
           </Card.Text>
 
           {edit ? (
-            <>
+            <div>
               <Button variant="primary" onClick={() => handleUpdate()}>
                 Save
                 </Button>{" "}
@@ -118,14 +118,14 @@ const Book = ({ book, doUpdate, doDelete }) => {
               >
                 Cancel
                 </Button>
-            </>
+            </div>
           ) : (
-              <>
+              <div>
                 <Button variant="success" onClick={() => setEdit(true)}>
                   Edit
                 </Button>{" "}
                 <Button variant="danger">Delete</Button>
-              </>
+              </div>
             )}
         </Card.Body>
       </Card>
